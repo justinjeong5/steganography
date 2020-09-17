@@ -14,6 +14,7 @@
 |encoding|decoding|
 |:---:|:---:|
 |<img src="https://user-images.githubusercontent.com/44011462/93299549-2e78aa80-f830-11ea-835a-9b77f37c3c89.png" width=300px>|<img src="https://user-images.githubusercontent.com/44011462/93299548-2e78aa80-f830-11ea-8b06-68c472185b89.png" width=300px>|  
+
 *window command를 이용한 encoding과 decoding의 모습*  
 
 ## 실행결과
@@ -21,6 +22,7 @@
 |:---:|:---:|
 |<img src="https://user-images.githubusercontent.com/44011462/92374126-49656380-f13a-11ea-9cb5-82189412bc38.jpg" width=300px>|<img src="https://user-images.githubusercontent.com/44011462/92374126-49656380-f13a-11ea-9cb5-82189412bc38.jpg" width=300px>|
 |<img src="https://user-images.githubusercontent.com/44011462/93299536-2b7dba00-f830-11ea-9f6a-9e440eb4b009.png" width=300px>|<img src="https://user-images.githubusercontent.com/44011462/93299550-2f114100-f830-11ea-8cff-a324be282500.png" width=300px>|   
+
 *작성한 프로그램을 이용하여 얻은 origin.bmp와 stego.bmp*  
 
 ## 구현원리
@@ -152,8 +154,8 @@ void read_file(const char *img) {
 // TODO: BMP형식의 파일을 읽어 메모리 heap영역에 저장함
     ifstream read_bmp;
 
-    read_bmp.open(img, ios_base::in | ios_base::binary); //a.bmp파일을 바이트로 읽어 들인다..
-    read_bmp.read((char *) &bf, sizeof(BITMAPFILEHEADER)); // 사이즈..
+    read_bmp.open(img, ios_base::in | ios_base::binary); // .bmp파일을 바이트로 읽어 들인다
+    read_bmp.read((char *) &bf, sizeof(BITMAPFILEHEADER));
 
     FILE *fileDescriptor = fopen(img, "rb");
     if (fileDescriptor == NULL) {
@@ -161,8 +163,8 @@ void read_file(const char *img) {
         exit(-1);
     }
 
-    fread(&bf, sizeof(unsigned char), sizeof(BITMAPFILEHEADER), fileDescriptor);// 사이중 헤더에 사이즈 14바이트..
-    fread(&bi, sizeof(unsigned char), sizeof(BITMAPINFOHEADER), fileDescriptor);// 나머지 정보 40바이트 저장..
+    fread(&bf, sizeof(unsigned char), sizeof(BITMAPFILEHEADER), fileDescriptor);// 헤더에 사이즈 14바이트
+    fread(&bi, sizeof(unsigned char), sizeof(BITMAPINFOHEADER), fileDescriptor);// 나머지 정보 40바이트 저장
 
     bmp_img = new unsigned char[bi.biSizeImage];
     fread(bmp_img, sizeof(unsigned char), bi.biSizeImage, fileDescriptor);
